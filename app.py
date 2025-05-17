@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 from flask import Flask, request, jsonify, render_template
 
-app = Flask(__name__) 
+app = Flask(__name__)  # Corrected __name__
 
 # Load the model and scaler
 regmodel = pickle.load(open('regmodel.pkl', 'rb'))
@@ -35,7 +35,6 @@ def predict():
     except Exception as e:
         return render_template("home.html", prediction_text=f"Error: {str(e)}")
 
-if __name__ == "_main_":
-    # Use assigned port (e.g., from Render or Heroku), or default to 5000
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port, debug=True)
+if __name__ == "__main__":
+    port = int(os.environ.get('PORT', 5000))  # Dynamically set port for Render
+    app.run(host='0.0.0.0', port=port, debug=True)  # Bind to all interfaces
